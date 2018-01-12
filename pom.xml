@@ -15,7 +15,6 @@
 	<name>Insurance Lib : Calculation utility</name>
 
 	<modules>
-		<module>client</module>
 		<module>beans</module>
 		<module>app</module>
 	</modules>
@@ -27,6 +26,7 @@
 		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
 		<insurance-domain.version>2.4</insurance-domain.version>
+		<insurance-calculation-client.version>2.2-SNAPSHOT</insurance-calculation-client.version>
 		<lapsa-arquillian-test.version>1.1</lapsa-arquillian-test.version>
 	</properties>
 
@@ -57,11 +57,6 @@
 			<!-- own -->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>insurance-calculation-client</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
 				<artifactId>insurance-calculation</artifactId>
 				<version>${project.version}</version>
 				<type>ejb</type>
@@ -73,6 +68,11 @@
 				<type>ear</type>
 			</dependency>
 			<!-- tech -->
+			<dependency>
+				<groupId>tech.lapsa.insurance</groupId>
+				<artifactId>insurance-calculation-client</artifactId>
+				<version>${insurance-calculation-client.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.insurance</groupId>
 				<artifactId>insurance-domain</artifactId>
