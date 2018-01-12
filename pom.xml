@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>tech.lapsa.maven</groupId>
@@ -26,8 +27,9 @@
 		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
 		<insurance-domain.version>2.4</insurance-domain.version>
-		<insurance-calculation-client.version>2.2-SNAPSHOT</insurance-calculation-client.version>
 		<lapsa-arquillian-test.version>1.1</lapsa-arquillian-test.version>
+		<!-- EJB clients -->
+		<insurance-calculation-client.version>2.2-SNAPSHOT</insurance-calculation-client.version>
 	</properties>
 
 	<dependencyManagement>
