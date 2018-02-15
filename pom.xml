@@ -9,7 +9,7 @@
 
 	<groupId>tech.lapsa.insurance</groupId>
 	<artifactId>insurance-calculation-root</artifactId>
-	<version>2.2.2-SNAPSHOT</version>
+	<version>2.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Insurance Lib : Calculation utility</name>
@@ -25,9 +25,9 @@
 		<lapsa-commons.version>1.2</lapsa-commons.version>
 		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
-		<lapsa-arquillian-test.version>1.1</lapsa-arquillian-test.version>
+		<lapsa-arquillian-test.version>1.2-SNAPSHOT</lapsa-arquillian-test.version>
 		<!-- EJB clients -->
-		<insurance-calculation-client.version>2.2.1</insurance-calculation-client.version>
+		<insurance-calculation-client.version>2.3-SNAPSHOT</insurance-calculation-client.version>
 	</properties>
 
 	<dependencyManagement>
