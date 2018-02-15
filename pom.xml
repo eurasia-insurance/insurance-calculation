@@ -22,7 +22,7 @@
 	<properties>
 		<!-- BOMS -->
 		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
-		<lapsa-commons.version>1.1</lapsa-commons.version>
+		<lapsa-commons.version>1.2</lapsa-commons.version>
 		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
 		<lapsa-arquillian-test.version>1.2-SNAPSHOT</lapsa-arquillian-test.version>
