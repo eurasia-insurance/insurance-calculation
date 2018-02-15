@@ -22,13 +22,12 @@
 	<properties>
 		<!-- BOMS -->
 		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
-		<lapsa-commons.version>1.1</lapsa-commons.version>
+		<lapsa-commons.version>1.2</lapsa-commons.version>
 		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
-		<insurance-domain.version>2.4</insurance-domain.version>
 		<lapsa-arquillian-test.version>1.1</lapsa-arquillian-test.version>
 		<!-- EJB clients -->
-		<insurance-calculation-client.version>2.2</insurance-calculation-client.version>
+		<insurance-calculation-client.version>2.2.1</insurance-calculation-client.version>
 	</properties>
 
 	<dependencyManagement>
@@ -73,11 +72,6 @@
 				<groupId>tech.lapsa.insurance</groupId>
 				<artifactId>insurance-calculation-client</artifactId>
 				<version>${insurance-calculation-client.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>tech.lapsa.insurance</groupId>
-				<artifactId>insurance-domain</artifactId>
-				<version>${insurance-domain.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.lapsa</groupId>
