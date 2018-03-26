@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.util.Currency;
 
 import com.lapsa.insurance.domain.CalculationData;
+import com.lapsa.insurance.domain.InsuranceProduct;
 import com.lapsa.insurance.domain.casco.Casco;
 import com.lapsa.insurance.domain.casco.CascoVehicle;
 import com.lapsa.insurance.domain.policy.Policy;
@@ -91,9 +92,9 @@ public final class HelperUtilityClass {
 	return casco;
     }
 
-    public static void assertExpectingAmount(Policy policy, double expectedAmount) {
-	assertThat(policy.getCalculation().getAmount(), equalTo(expectedAmount));
-	assertThat(policy.getCalculation().getCurrency(),
+    public static void assertExpectingAmount(final InsuranceProduct product, final double expectedAmount) {
+	assertThat(product.getCalculation().getAmount(), equalTo(expectedAmount));
+	assertThat(product.getCalculation().getCurrency(),
 		allOf(not(nullValue()), equalTo(Currency.getInstance("KZT"))));
 	System.out.println(MyStrings.format("Expected amount of %1$.2f", expectedAmount));
     }
