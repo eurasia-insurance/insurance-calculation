@@ -2,7 +2,7 @@ package test;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
-import static test.TestObjectsCreatorHelper.*;
+import static test.HelperUtilityClass.*;
 
 import java.util.Currency;
 

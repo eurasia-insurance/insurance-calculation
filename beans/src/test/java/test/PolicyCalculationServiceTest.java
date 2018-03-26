@@ -1,6 +1,6 @@
 package test;
 
-import static test.TestObjectsCreatorHelper.*;
+import static test.HelperUtilityClass.*;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

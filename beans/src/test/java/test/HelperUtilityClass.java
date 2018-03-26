@@ -24,7 +24,7 @@ import com.lapsa.kz.country.KZCity;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
-public final class TestObjectsCreatorHelper {
+public final class HelperUtilityClass {
 
     public static Policy generatePolicy() {
 	Policy policy = new Policy();
