@@ -1,5 +1,10 @@
 package test;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
+import java.util.Currency;
+
 import com.lapsa.insurance.domain.CalculationData;
 import com.lapsa.insurance.domain.casco.Casco;
 import com.lapsa.insurance.domain.casco.CascoVehicle;
@@ -16,6 +21,7 @@ import com.lapsa.insurance.elements.VehicleClass;
 import com.lapsa.kz.country.KZArea;
 import com.lapsa.kz.country.KZCity;
 
+import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
 public final class TestObjectsCreatorHelper {
@@ -23,25 +29,35 @@ public final class TestObjectsCreatorHelper {
     public static Policy generatePolicy() {
 	Policy policy = new Policy();
 
+	PolicyDriver d = generatePolicyDriver();
+	policy.addDriver(d);
+
+	PolicyVehicle v = generatePolicyVehicle();
+	policy.addVehicle(v);
+
+	CalculationData c = new CalculationData();
+	policy.setCalculation(c);
+
+	return policy;
+    }
+
+    public static PolicyVehicle generatePolicyVehicle() {
+	PolicyVehicle v = new PolicyVehicle();
+	v.setCity(KZCity.ALM);
+	v.setArea(KZArea.GALM);
+	v.setVehicleClass(VehicleClass.CAR);
+	v.setVehicleAgeClass(VehicleAgeClass.OVER7);
+	return v;
+    }
+
+    public static PolicyDriver generatePolicyDriver() {
 	PolicyDriver d = new PolicyDriver();
 	d.setIdNumber(TaxpayerNumber.of("123123123127"));
 	d.setInsuranceClassType(InsuranceClassType.CLASS_3);
 	d.setAgeClass(InsuredAgeClass.OVER25);
 	d.setExpirienceClass(InsuredExpirienceClass.LESS2);
 	d.setHasAnyPrivilege(false);
-	policy.addDriver(d);
-
-	PolicyVehicle v = new PolicyVehicle();
-	v.setCity(KZCity.ALM);
-	v.setArea(KZArea.GALM);
-	v.setVehicleClass(VehicleClass.CAR);
-	v.setVehicleAgeClass(VehicleAgeClass.OVER7);
-	policy.addVehicle(v);
-
-	CalculationData c = new CalculationData();
-	policy.setCalculation(c);
-	
-	return policy;
+	return d;
     }
 
     public static Casco generateCasco() {
@@ -73,5 +89,12 @@ public final class TestObjectsCreatorHelper {
 	casco.setDriverAndPassengerCoverage(false);
 	casco.setDriverAndPassengerCount(0);
 	return casco;
+    }
+
+    public static void assertExpectingAmount(Policy policy, double expectedAmount) {
+	assertThat(policy.getCalculation().getAmount(), equalTo(expectedAmount));
+	assertThat(policy.getCalculation().getCurrency(),
+		allOf(not(nullValue()), equalTo(Currency.getInstance("KZT"))));
+	System.out.println(MyStrings.format("Expected amount of %1$.2f", expectedAmount));
     }
 }
