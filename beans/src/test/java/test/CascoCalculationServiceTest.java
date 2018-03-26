@@ -1,10 +1,6 @@
 package test;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static test.TestObjectsCreatorHelper.*;
-
-import java.util.Currency;
+import static test.HelperUtilityClass.*;
 
 import javax.inject.Inject;
 
@@ -26,9 +22,9 @@ public class CascoCalculationServiceTest extends ArquillianBaseTestCase {
     @Test
     public void testCascoCalculationVariant1() throws CalculationFailed {
 	Casco casco = generateCasco();
+
 	calc.calculateCascoCost(casco);
-	assertThat(casco.getCalculation().getAmount(), equalTo(282994d));
-	assertThat(casco.getCalculation().getCurrency(), allOf(not(nullValue()), equalTo(Currency.getInstance("KZT"))));
+	assertExpectingAmount(casco, 282994d);
     }
 
     @Test
@@ -36,9 +32,9 @@ public class CascoCalculationServiceTest extends ArquillianBaseTestCase {
 	Casco casco = generateCasco();
 	casco.setDeductiblePartialRequired(true);
 	casco.setDeductiblePartialRate(CascoDeductiblePartialRate.PERCENT2);
+
 	calc.calculateCascoCost(casco);
-	assertThat(casco.getCalculation().getAmount(), equalTo(177375d));
-	assertThat(casco.getCalculation().getCurrency(), allOf(not(nullValue()), equalTo(Currency.getInstance("KZT"))));
+	assertExpectingAmount(casco, 177375d);
     }
 
     @Test
@@ -56,8 +52,6 @@ public class CascoCalculationServiceTest extends ArquillianBaseTestCase {
 	casco.setCoverNonRoadAccidents(true);
 
 	calc.calculateCascoCost(casco);
-	assertThat(casco.getCalculation().getAmount(), equalTo(50000.00d));
-	assertThat(casco.getCalculation().getCurrency(), allOf(not(nullValue()), equalTo(Currency.getInstance("KZT"))));
+	assertExpectingAmount(casco, 50000d);
     }
-
 }

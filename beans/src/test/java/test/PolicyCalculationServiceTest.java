@@ -1,12 +1,9 @@
 package test;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static test.TestObjectsCreatorHelper.*;
+import static test.HelperUtilityClass.*;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Currency;
 
 import javax.inject.Inject;
 
@@ -33,8 +30,9 @@ public class PolicyCalculationServiceTest extends ArquillianBaseTestCase {
     @Test
     public void testPolicyCalculationVariant1() throws CalculationFailed {
 	Policy policy = generatePolicy();
+
 	calc.calculatePolicyCost(policy);
-	assertThat(policy.getCalculation().getAmount(), equalTo(32650d));
+	assertExpectingAmount(policy, 32650d);
     }
 
     @Test
@@ -44,10 +42,9 @@ public class PolicyCalculationServiceTest extends ArquillianBaseTestCase {
 	period.setFrom(LocalDate.of(2016, 10, 26));
 	period.setTo(period.getFrom().plusDays(365));
 	policy.setPeriod(period);
+
 	calc.calculatePolicyCost(policy);
-	assertThat(policy.getCalculation().getAmount(), equalTo(32650d));
-	assertThat(policy.getCalculation().getCurrency(),
-		allOf(not(nullValue()), equalTo(Currency.getInstance("KZT"))));
+	assertExpectingAmount(policy, 32650d);
     }
 
     @Test
@@ -57,10 +54,9 @@ public class PolicyCalculationServiceTest extends ArquillianBaseTestCase {
 	period.setFrom(LocalDate.of(2016, 10, 26));
 	period.setTo(period.getFrom().plusMonths(1));
 	policy.setPeriod(period);
+
 	calc.calculatePolicyCost(policy);
-	assertThat(policy.getCalculation().getAmount(), equalTo(2855d));
-	assertThat(policy.getCalculation().getCurrency(),
-		allOf(not(nullValue()), equalTo(Currency.getInstance("KZT"))));
+	assertExpectingAmount(policy, 2855d);
     }
 
     @Test
@@ -70,10 +66,9 @@ public class PolicyCalculationServiceTest extends ArquillianBaseTestCase {
 	period.setFrom(LocalDate.of(2016, 10, 26));
 	period.setTo(period.getFrom().plus(1, ChronoUnit.YEARS));
 	policy.setPeriod(period);
+
 	calc.calculatePolicyCost(policy);
-	assertThat(policy.getCalculation().getAmount(), equalTo(32650d));
-	assertThat(policy.getCalculation().getCurrency(),
-		allOf(not(nullValue()), equalTo(Currency.getInstance("KZT"))));
+	assertExpectingAmount(policy, 32650d);
     }
 
     @Test
@@ -93,9 +88,44 @@ public class PolicyCalculationServiceTest extends ArquillianBaseTestCase {
 	veh.setVehicleClass(VehicleClass.CAR);
 
 	calc.calculatePolicyCost(policy);
-	assertThat(policy.getCalculation().getAmount(), equalTo(46223d));
-	assertThat(policy.getCalculation().getCurrency(),
-		allOf(not(nullValue()), equalTo(Currency.getInstance("KZT"))));
+	assertExpectingAmount(policy, 46223d);
     }
 
+    @Test
+    // стандартный договор с льготником - льгота применяется
+    public void testPolicyCalculationPrivileges_StandardPrivileger1() throws CalculationFailed {
+	Policy policy = generatePolicy();
+
+	PolicyDriver drv = policy.getInsuredDrivers().iterator().next();
+	drv.setHasAnyPrivilege(true);
+
+	calc.calculatePolicyCost(policy);
+	assertExpectingAmount(policy, 16325d);
+    }
+
+    @Test
+    // стандартный договор с льготником - льгота могла бы быть предоставляется, но перекрывается водителем-нельготником
+    public void testPolicyCalculationPrivileges_StandardPrivileger2() throws CalculationFailed {
+	Policy policy = generatePolicy();
+	policy.addDriver(generatePolicyDriver());
+
+	PolicyDriver drv = policy.getInsuredDrivers().iterator().next();
+	drv.setHasAnyPrivilege(true);
+
+	calc.calculatePolicyCost(policy);
+	assertExpectingAmount(policy, 32650d);
+    }
+
+    @Test
+    // комплексный договор с присуствтием льготника - льгота не предоставляется
+    public void testPolicyCalculationPrivileges_ComplexPrivileger1() throws CalculationFailed {
+	Policy policy = generatePolicy();
+	policy.addVehicle(generatePolicyVehicle());
+
+	PolicyDriver drv = policy.getInsuredDrivers().iterator().next();
+	drv.setHasAnyPrivilege(true);
+
+	calc.calculatePolicyCost(policy);
+	assertExpectingAmount(policy, 32650d);
+    }
 }
