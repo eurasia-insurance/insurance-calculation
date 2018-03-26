@@ -4,6 +4,7 @@ import static tech.lapsa.insurance.calculation.beans.Calculations.*;
 import static tech.lapsa.insurance.calculation.beans.PolicyRates.*;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map.Entry;
@@ -74,19 +75,33 @@ public class PolicyCalculationBean implements PolicyCalculationLocal, PolicyCalc
 
     // PRIVATE
 
-    private void _calculate(final Policy policy, final CalculationData calc) throws CalculationFailed {
+    private void _calculate(final Policy policy,
+	    final CalculationData calc) throws CalculationFailed {
 	double cost = policyCost(policy.getInsuredDrivers(),
 		policy.getInsuredVehicles(), policy.getPeriod());
 	calc.setAmount(cost);
 	calc.setCurrency(Currency.getInstance("KZT"));
     }
 
-    private double policyCost(final List<PolicyDriver> drivers, final List<PolicyVehicle> vehicles,
+    private static enum InsuranceType {
+	STANDARD, COMPLEX;
+    }
+
+    private double policyCost(final List<PolicyDriver> drivers,
+	    final List<PolicyVehicle> vehicles,
 	    final InsurancePeriodData period) throws CalculationFailed {
+	final InsuranceType insuranceType = (vehicles.size() == 1 && drivers.size() >= 1)
+		? InsuranceType.STANDARD
+		: (vehicles.size() >= 1 && drivers.size() == 1)
+			? InsuranceType.COMPLEX
+			: null;
+	if (insuranceType == null)
+	    throw MyExceptions.format(CalculationFailed::new, "Can't determine the type of insurance (%1$s)",
+		    Arrays.asList(InsuranceType.values()));
 	double maximumCost = 0d;
 	for (final PolicyDriver driver : drivers)
 	    for (final PolicyVehicle vehicle : vehicles) {
-		final double cost = policyCostVariant(driver, vehicle, period);
+		final double cost = policyCostVariant(driver, vehicle, period, insuranceType);
 		if (maximumCost < cost)
 		    maximumCost = cost;
 	    }
@@ -102,8 +117,10 @@ public class PolicyCalculationBean implements PolicyCalculationLocal, PolicyCalc
 		.orElseGet(OptionalDouble::empty);
     }
 
-    private double policyCostVariant(final PolicyDriver insured, final PolicyVehicle vehicle,
-	    final InsurancePeriodData period) throws CalculationFailed {
+    private double policyCostVariant(final PolicyDriver insured,
+	    final PolicyVehicle vehicle,
+	    final InsurancePeriodData period,
+	    final InsuranceType insuranceType) throws CalculationFailed {
 
 	double cost = 0d;
 
@@ -113,7 +130,8 @@ public class PolicyCalculationBean implements PolicyCalculationLocal, PolicyCalc
 		    .map(InsurancePeriodData::getFrom) //
 		    .orElseGet(LocalDate::now);
 	    cost = getMRPOn(date)
-		    .orElseThrow(MyExceptions.supplier(EJBException::new, "MRP settings is not available on %1$s", date));
+		    .orElseThrow(
+			    MyExceptions.supplier(EJBException::new, "MRP settings is not available on %1$s", date));
 	}
 
 	{
@@ -205,7 +223,9 @@ public class PolicyCalculationBean implements PolicyCalculationLocal, PolicyCalc
 
 	{
 	    // скидка привелегированным (пенсионеры, участники, инвалиды)
-	    if (insured.isHasAnyPrivilege()) {
+	    // предоставляется только по стандартному договору страхования (не
+	    // комплексному)
+	    if (insuranceType == InsuranceType.STANDARD && insured.isHasAnyPrivilege()) {
 		double rate = getPrivilegerRate();
 		cost *= rate;
 	    }
