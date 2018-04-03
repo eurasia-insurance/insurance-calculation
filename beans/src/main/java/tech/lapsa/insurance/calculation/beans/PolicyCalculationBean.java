@@ -101,7 +101,7 @@ public class PolicyCalculationBean implements PolicyCalculationLocal, PolicyCalc
 	double maximumCost = 0d;
 	for (final PolicyDriver driver : drivers)
 	    for (final PolicyVehicle vehicle : vehicles) {
-		final double cost = policyCostVariant(driver, vehicle, period, insuranceType);
+		final double cost = policyCostVariant(driver, vehicle, period, insuranceType, drivers.size());
 		if (maximumCost < cost)
 		    maximumCost = cost;
 	    }
@@ -120,7 +120,8 @@ public class PolicyCalculationBean implements PolicyCalculationLocal, PolicyCalc
     private double policyCostVariant(final PolicyDriver insured,
 	    final PolicyVehicle vehicle,
 	    final InsurancePeriodData period,
-	    final InsuranceType insuranceType) throws CalculationFailed {
+	    final InsuranceType insuranceType,
+	    final int numberOfInsuredPersons) throws CalculationFailed {
 
 	double cost = 0d;
 
@@ -224,8 +225,11 @@ public class PolicyCalculationBean implements PolicyCalculationLocal, PolicyCalc
 	{
 	    // скидка привелегированным (пенсионеры, участники, инвалиды)
 	    // предоставляется только по стандартному договору страхования (не
-	    // комплексному)
-	    if (insuranceType == InsuranceType.STANDARD && insured.isHasAnyPrivilege()) {
+	    // комплексному) и только в случае, если застрахованный водитель
+	    // один
+	    if (insuranceType == InsuranceType.STANDARD
+		    && numberOfInsuredPersons == 1
+		    && insured.isHasAnyPrivilege()) {
 		double rate = getPrivilegerRate();
 		cost *= rate;
 	    }
