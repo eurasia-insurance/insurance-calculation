@@ -22,10 +22,10 @@
 	<properties>
 		<!-- BOMS -->
 		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
-		<lapsa-commons.version>1.2</lapsa-commons.version>
+		<java-commons.version>1.3</java-commons.version>
 		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
-		<lapsa-arquillian-test.version>1.2-SNAPSHOT</lapsa-arquillian-test.version>
+		<lapsa-arquillian-test.version>1.2</lapsa-arquillian-test.version>
 		<!-- EJB clients -->
 		<insurance-calculation-client.version>2.3-SNAPSHOT</insurance-calculation-client.version>
 	</properties>
@@ -43,7 +43,7 @@
 			<dependency>
 				<groupId>tech.lapsa.java</groupId>
 				<artifactId>java-commons</artifactId>
-				<version>${lapsa-commons.version}</version>
+				<version>${java-commons.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
