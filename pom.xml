@@ -27,7 +27,7 @@
 		<!-- tech -->
 		<lapsa-arquillian-test.version>1.2</lapsa-arquillian-test.version>
 		<!-- EJB clients -->
-		<insurance-calculation-client.version>2.3</insurance-calculation-client.version>
+		<insurance-calculation-client.version>2.3.1-SNAPSHOT</insurance-calculation-client.version>
 	</properties>
 
 	<dependencyManagement>
