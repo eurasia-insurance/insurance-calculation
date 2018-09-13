@@ -32,7 +32,7 @@ public final class PolicyRates {
 
     public static final Map<KZArea, Double> REGION_RATES = ofEntries(
 	    entry(KZArea.OALM, 1.78d), // 05
-	    entry(KZArea.OUK, 1.01d), // 13
+	    entry(KZArea.OTRK, 1.01d), // 13
 	    entry(KZArea.OVK, 1.96d), // 16
 	    entry(KZArea.OKST, 1.95d), // 10
 	    entry(KZArea.OKGD, 1.39d), // 09
@@ -46,7 +46,8 @@ public final class PolicyRates {
 	    entry(KZArea.OATY, 2.69d), // 06
 	    entry(KZArea.OMNG, 1.15d), // 12
 	    entry(KZArea.GALM, 2.96d), // 02
-	    entry(KZArea.GAST, 2.20d) // 01
+	    entry(KZArea.GAST, 2.20d), // 01
+	    entry(KZArea.GSHM, 1.01d) // 17
     );
 
     public static final double NON_MAJOR_CITY_CORRECTION_RATE = 0.8d;
