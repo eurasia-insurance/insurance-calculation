@@ -180,12 +180,11 @@ public class PolicyCalculationBean implements PolicyCalculationLocal, PolicyCalc
 
 	    {
 		// коэффициент по городу регионального значения
-		final Boolean isMajorCity;
+		final boolean isMajorCity;
 		if (vehicle.getCity() != null) {
 		    isMajorCity = isMajorCity(vehicle.getCity());
 		} else {
-		    if ((vehicle.getArea() == KZArea.GALM || vehicle.getArea() == KZArea.GAST)
-			    && !vehicle.isForcedMajorCity())
+		    if (vehicle.getArea().isMonoCity() && !vehicle.isForcedMajorCity())
 			throw new CalculationFailed(String.format(
 				"City for area %1$s must be major city or city must be set", vehicle.getArea().name()));
 		    isMajorCity = vehicle.isForcedMajorCity();
