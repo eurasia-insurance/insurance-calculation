@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>tech.lapsa.maven</groupId>
 		<artifactId>maven-general</artifactId>
-		<version>3.1</version>
+		<version>3.2</version>
 	</parent>
 
 	<groupId>tech.lapsa.insurance</groupId>
 	<artifactId>insurance-calculation-root</artifactId>
-	<version>2.3.4-SNAPSHOT</version>
+	<version>2.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Insurance Lib : Calculation utility</name>
