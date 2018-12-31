@@ -19,40 +19,14 @@
 		<module>app</module>
 	</modules>
 
-	<properties>
-		<!-- BOMS -->
-		<javax-javaee-bom.version>CURRENT-SNAPSHOT</javax-javaee-bom.version>
-		<java-commons.version>CURRENT-SNAPSHOT</java-commons.version>
-		<payara-bom.version>CURRENT-SNAPSHOT</payara-bom.version>
-		<!-- tech -->
-		<lapsa-arquillian-test.version>CURRENT-SNAPSHOT</lapsa-arquillian-test.version>
-		<!-- EJB clients -->
-		<insurance-calculation-client.version>CURRENT-SNAPSHOT</insurance-calculation-client.version>
-	</properties>
-
 	<dependencyManagement>
 		<dependencies>
-			<!-- BOMS -->
 			<dependency>
-				<groupId>tech.lapsa.javax</groupId>
-				<artifactId>javax-javaee-bom</artifactId>
-				<version>${javax-javaee-bom.version}</version>
+				<groupId>tech.lapsa.insurance</groupId>
+				<artifactId>insurance-bom</artifactId>
+				<version>CURRENT-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>tech.lapsa.java</groupId>
-				<artifactId>java-commons</artifactId>
-				<version>${java-commons.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>tech.lapsa.payara</groupId>
-				<artifactId>payara-bom</artifactId>
-				<version>${payara-bom.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
 			</dependency>
 			<!-- own -->
 			<dependency>
@@ -66,17 +40,6 @@
 				<artifactId>insurance-calculation-app</artifactId>
 				<version>${project.version}</version>
 				<type>ear</type>
-			</dependency>
-			<!-- tech -->
-			<dependency>
-				<groupId>tech.lapsa.insurance</groupId>
-				<artifactId>insurance-calculation-client</artifactId>
-				<version>${insurance-calculation-client.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>tech.lapsa.lapsa</groupId>
-				<artifactId>lapsa-arquillian-test</artifactId>
-				<version>${lapsa-arquillian-test.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
