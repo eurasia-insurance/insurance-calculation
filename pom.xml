@@ -21,13 +21,13 @@
 
 	<properties>
 		<!-- BOMS -->
-		<javax-javaee-bom.version>20190127r1</javax-javaee-bom.version>
-		<java-commons.version>20190127r1</java-commons.version>
-		<payara-bom.version>20190127r1</payara-bom.version>
+		<javax-javaee-bom.version>CURRENT-SNAPSHOT</javax-javaee-bom.version>
+		<java-commons.version>CURRENT-SNAPSHOT</java-commons.version>
+		<payara-bom.version>CURRENT-SNAPSHOT</payara-bom.version>
 		<!-- tech -->
-		<lapsa-arquillian-test.version>20190127r1</lapsa-arquillian-test.version>
+		<lapsa-arquillian-test.version>CURRENT-SNAPSHOT</lapsa-arquillian-test.version>
 		<!-- EJB clients -->
-		<insurance-calculation-client.version>20190127r1</insurance-calculation-client.version>
+		<insurance-calculation-client.version>CURRENT-SNAPSHOT</insurance-calculation-client.version>
 	</properties>
 
 	<dependencyManagement>
