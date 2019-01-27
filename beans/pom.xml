@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>tech.lapsa.insurance</groupId>
 		<artifactId>insurance-calculation-root</artifactId>
-		<version>20190127r1</version>
+		<version>CURRENT-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>insurance-calculation</artifactId>
